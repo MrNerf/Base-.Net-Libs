@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_ThreadStats", "04_Thread
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_SimpleMultiThreadApp", "05_SimpleMultiThreadApp\05_SimpleMultiThreadApp.csproj", "{5EC1C1C1-4704-428C-8ED9-57D5D08B2046}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06_AddWithThreads", "06_AddWithThreads\06_AddWithThreads.csproj", "{B3E1C6DC-9406-45FD-8C56-71BEEB686277}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{5EC1C1C1-4704-428C-8ED9-57D5D08B2046}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EC1C1C1-4704-428C-8ED9-57D5D08B2046}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EC1C1C1-4704-428C-8ED9-57D5D08B2046}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3E1C6DC-9406-45FD-8C56-71BEEB686277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3E1C6DC-9406-45FD-8C56-71BEEB686277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3E1C6DC-9406-45FD-8C56-71BEEB686277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3E1C6DC-9406-45FD-8C56-71BEEB686277}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
