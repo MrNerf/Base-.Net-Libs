@@ -5,7 +5,7 @@ using System.Threading;
 namespace _03_AsyncCallbackDelegate
 {
     public delegate int BinaryOp(int x, int y);
-    internal class Program
+    internal class AsyncCallbackDelegate
     {
         /*
          * Переменная _isDone  необходима для удерживания первичного потока

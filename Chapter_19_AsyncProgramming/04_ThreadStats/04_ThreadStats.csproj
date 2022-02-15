@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4D30F2F1-CAB7-4D97-BA6F-10DFCC7533DA}</ProjectGuid>
+    <ProjectGuid>{E685EAB9-5CAA-42D8-AFA9-24B54D3E988C}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_03_AsyncCallbackDelegate</RootNamespace>
-    <AssemblyName>03_AsyncCallbackDelegate</AssemblyName>
+    <RootNamespace>_04_ThreadStats</RootNamespace>
+    <AssemblyName>ThreadStats</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncCallbackDelegate.cs" />
+    <Compile Include="ThreadStats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
