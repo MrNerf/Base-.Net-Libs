@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_AsyncCallbackDelegate", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_ThreadStats", "04_ThreadStats\04_ThreadStats.csproj", "{E685EAB9-5CAA-42D8-AFA9-24B54D3E988C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_SimpleMultiThreadApp", "05_SimpleMultiThreadApp\05_SimpleMultiThreadApp.csproj", "{5EC1C1C1-4704-428C-8ED9-57D5D08B2046}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E685EAB9-5CAA-42D8-AFA9-24B54D3E988C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E685EAB9-5CAA-42D8-AFA9-24B54D3E988C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E685EAB9-5CAA-42D8-AFA9-24B54D3E988C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC1C1C1-4704-428C-8ED9-57D5D08B2046}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC1C1C1-4704-428C-8ED9-57D5D08B2046}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC1C1C1-4704-428C-8ED9-57D5D08B2046}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC1C1C1-4704-428C-8ED9-57D5D08B2046}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
