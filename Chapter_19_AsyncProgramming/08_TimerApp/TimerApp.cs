@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace _08_TimerApp
 {
-    internal class Program
+    internal class TimerApp
     {
         private static void Main()
         {
@@ -30,7 +30,9 @@ namespace _08_TimerApp
                     foreach (var thread in threadMas) thread.Start();
                     break;
                 case "2":
-                    
+                    var printer = new Printer();
+                    for (var i = 0; i < 10; i++) threadMas[i] = new Thread(printer.PrintNumbers) { Name = $"Thread {i}" };
+                    for (var i = 0; i < 10; i++) threadMas[i].Start(i+2);
                     break;
                 case "3":
                     
