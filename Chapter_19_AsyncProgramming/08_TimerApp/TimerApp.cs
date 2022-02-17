@@ -38,7 +38,7 @@ namespace _08_TimerApp
                     var timerCb = new TimerCallback(PrintTime);
                     var timer = new Timer(timerCb, "Timer Callback", 0, 1000);
                     Console.WriteLine("Нажмите Enter чтобы остановить вывод");
-                    Console.Read();
+                    Console.ReadLine();
                     timer.Dispose();
                     break;
                 default:
