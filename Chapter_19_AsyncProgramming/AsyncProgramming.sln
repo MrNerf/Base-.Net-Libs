@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_SimpleMultiThreadApp", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06_AddWithThreads", "06_AddWithThreads\06_AddWithThreads.csproj", "{B3E1C6DC-9406-45FD-8C56-71BEEB686277}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07_MultiThreadPrinter", "07_MultiThreadPrinter\07_MultiThreadPrinter.csproj", "{1D8B6CAB-395C-476A-ABCC-414B159747F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{B3E1C6DC-9406-45FD-8C56-71BEEB686277}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3E1C6DC-9406-45FD-8C56-71BEEB686277}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3E1C6DC-9406-45FD-8C56-71BEEB686277}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D8B6CAB-395C-476A-ABCC-414B159747F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D8B6CAB-395C-476A-ABCC-414B159747F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D8B6CAB-395C-476A-ABCC-414B159747F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D8B6CAB-395C-476A-ABCC-414B159747F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
