@@ -35,7 +35,11 @@ namespace _08_TimerApp
                     for (var i = 0; i < 10; i++) threadMas[i].Start(i+2);
                     break;
                 case "3":
-                    
+                    var timerCb = new TimerCallback(PrintTime);
+                    var timer = new Timer(timerCb, "Timer Callback", 0, 1000);
+                    Console.WriteLine("Нажмите Enter чтобы остановить вывод");
+                    Console.Read();
+                    timer.Dispose();
                     break;
                 default:
                     Console.WriteLine("Введена неверная команда повторите попытку");
@@ -43,7 +47,9 @@ namespace _08_TimerApp
             }
 
             Console.WriteLine("\nРабота приложения завершена\n********************************************");
-            Console.Read();
+            Console.ReadLine();
         }
+
+        private static void PrintTime(object state) => Console.WriteLine($"Message: {state}\tCurrent time: {DateTime.Now.ToLongTimeString()}");
     }
 }
