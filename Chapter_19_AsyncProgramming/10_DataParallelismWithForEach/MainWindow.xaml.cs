@@ -13,7 +13,7 @@ namespace _10_DataParallelismWithForEach
     public partial class MainWindow
     {
         //Экземпляр для выполнения отмены
-        private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
+        private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
         public MainWindow()
         {
             InitializeComponent();
@@ -72,7 +72,7 @@ namespace _10_DataParallelismWithForEach
             Directory.CreateDirectory(newDir);
             try
             {
-                Parallel.ForEach(files, currentFile =>
+                Parallel.ForEach(files, parOpts,currentFile =>
                 {
                     parOpts.CancellationToken.ThrowIfCancellationRequested();
                     var fileName = Path.GetFileName(currentFile);
@@ -91,7 +91,8 @@ namespace _10_DataParallelismWithForEach
             }
             catch (OperationCanceledException e)
             {
-                Dispatcher.Invoke(() => { ViewLabel.Content = $"Ошибка программы: {e.Message}"; });
+                Dispatcher.Invoke(() => { ViewLabel.Content = $"Информация: {e.Message}"; });
+                _cancellationToken = new CancellationTokenSource();
             }
         }
 
