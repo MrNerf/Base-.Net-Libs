@@ -17,21 +17,27 @@ namespace _11_MyEBookReader
             Console.WriteLine("*************Parallel.Invoke() test*************\n");
             // ReSharper disable once StringLiteralTypo
             Console.WriteLine("Загрузка книги с открытого сайта Гутенберга\n");
-            GetBook();
+            var taskResult = GetBookTask();
+            while (!taskResult.IsCompleted) { }
 
             Console.WriteLine("\nРабота приложения завершена\n********************************************");
             Console.ReadLine();
+        }
+
+        private static async Task GetBookTask()
+        {
+            await Task.Run(GetBook);
         }
 
         private static void GetBook()
         {
             using (var webClient = new WebClient())
             {
-                webClient.DownloadStringCompleted += (sender, args) =>
+                webClient.DownloadStringCompleted += async (sender, args) =>
                 {
                     _theBook = args.Result;
                     Console.WriteLine("Загрузка книги завершена");
-                    GetStats();
+                    await Task.Run(GetStats);
                 };
                 webClient.DownloadStringAsync(new Uri("https://gutenberg.org/files/64317/64317-0.txt"));
             }
@@ -41,8 +47,13 @@ namespace _11_MyEBookReader
         {
             var words = _theBook.Split(new[] {' ', '\u000A', ',', '.', ';', ':', '-', '?', '!', '/', '—' }, StringSplitOptions.RemoveEmptyEntries);
 
-            var tenMostCommonWords = FindMostCommonWords(words);
-            var longestWord = FindLongestWord(words);
+            var longestWord = string.Empty;
+            IEnumerable<string> tenMostCommonWords = null;
+
+            Parallel.Invoke(
+                () => tenMostCommonWords = FindMostCommonWords(words),
+                () => longestWord = FindLongestWord(words)
+                );
 
             var bookStats = new StringBuilder("10 ключевых слов книги:\n");
             foreach (var commonWord in tenMostCommonWords) bookStats.AppendLine(commonWord);
@@ -50,7 +61,8 @@ namespace _11_MyEBookReader
             bookStats.AppendFormat($"Самое длинное слово {longestWord}");
             bookStats.AppendLine();
 
-            Console.WriteLine(bookStats.ToString(), "Информация о книге");
+            Console.WriteLine(bookStats.ToString());
+            //Console.WriteLine(bookStats.ToString(), "Информация о книге");
         }
 
         private static string FindLongestWord(string[] words)
