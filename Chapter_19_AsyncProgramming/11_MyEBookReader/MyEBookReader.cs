@@ -62,7 +62,6 @@ namespace _11_MyEBookReader
             bookStats.AppendLine();
 
             Console.WriteLine(bookStats.ToString());
-            //Console.WriteLine(bookStats.ToString(), "Информация о книге");
         }
 
         private static string FindLongestWord(string[] words)
