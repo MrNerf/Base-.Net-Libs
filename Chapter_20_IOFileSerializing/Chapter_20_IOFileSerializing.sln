@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_DirectoryApp", "01_Direc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_DriveInfo", "02_DriveInfo\02_DriveInfo.csproj", "{AD9BCC86-A001-4CDC-BDBF-6798DFADEE1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_FileIO", "03_FileIO\03_FileIO.csproj", "{15E99E3C-FAC2-4CCA-A68D-44430F253AD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AD9BCC86-A001-4CDC-BDBF-6798DFADEE1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD9BCC86-A001-4CDC-BDBF-6798DFADEE1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD9BCC86-A001-4CDC-BDBF-6798DFADEE1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15E99E3C-FAC2-4CCA-A68D-44430F253AD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15E99E3C-FAC2-4CCA-A68D-44430F253AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15E99E3C-FAC2-4CCA-A68D-44430F253AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15E99E3C-FAC2-4CCA-A68D-44430F253AD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
