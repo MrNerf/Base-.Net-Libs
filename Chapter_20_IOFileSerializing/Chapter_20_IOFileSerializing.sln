@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_FileStreamApp", "04_File
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05_StreamWriterReader", "05_StreamWriterReader\05_StreamWriterReader.csproj", "{B338DDA2-A413-4F99-A8BB-1503A6CF6146}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06_StringWriterReader", "06_StringWriterReader\06_StringWriterReader.csproj", "{4C35B3FD-EF2D-4375-8ADB-D6BE31EA591D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{B338DDA2-A413-4F99-A8BB-1503A6CF6146}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B338DDA2-A413-4F99-A8BB-1503A6CF6146}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B338DDA2-A413-4F99-A8BB-1503A6CF6146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C35B3FD-EF2D-4375-8ADB-D6BE31EA591D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C35B3FD-EF2D-4375-8ADB-D6BE31EA591D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C35B3FD-EF2D-4375-8ADB-D6BE31EA591D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C35B3FD-EF2D-4375-8ADB-D6BE31EA591D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
