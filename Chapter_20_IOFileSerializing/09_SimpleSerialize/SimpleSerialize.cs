@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Formatters.Soap;
 
 namespace _09_SimpleSerialize
 {
@@ -26,16 +27,20 @@ namespace _09_SimpleSerialize
             };
             SaveAsBinaryFormat(jbc, "CarData.dat");
             LoadFromBinaryFile("CarData.dat");
+            SaveAsSoapFormat(jbc, "CarDataSoap.soap");
+            LoadFromSoapFile("CarDataSoap.soap");
             Console.WriteLine("\n**************Работа приложения завершена**************");
             Console.ReadLine();
         }
+
+        #region Binary Serialization
 
         private static void LoadFromBinaryFile(string path)
         {
             using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None))
             {
                 var binFormat = new BinaryFormatter();
-                var jbc = (JamesBondCar) DeSerializeObjectGraph(binFormat, fs);
+                var jbc = (JamesBondCar)DeSerializeObjectGraph(binFormat, fs);
                 Console.WriteLine($"JamesBondCar:\tМожет летать: {jbc.CanFly}\n\t\t" +
                                   $"Может плавать: {jbc.CanSubmerge}\n\t\t" +
                                   $"Является хетчбеком: {jbc.IsHatchBack}\n\t\t" +
@@ -53,6 +58,36 @@ namespace _09_SimpleSerialize
                 Console.WriteLine("=> Файл сохранен в двоичный формат");
             }
         }
+
+        #endregion
+
+        #region Soap Serialization
+
+        private static void SaveAsSoapFormat(JamesBondCar jbc, string path)
+        {
+            using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+            {
+                var soapFormat = new SoapFormatter();
+                SerializeObjectGraph(soapFormat, fs, jbc);
+                Console.WriteLine("=> Файл сохранен в двоичный формат");
+            }
+        }
+
+        private static void LoadFromSoapFile(string path)
+        {
+            using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None))
+            {
+                var soapFormat = new SoapFormatter();
+                var jbc = (JamesBondCar)DeSerializeObjectGraph(soapFormat, fs);
+                Console.WriteLine($"JamesBondCar:\tМожет летать: {jbc.CanFly}\n\t\t" +
+                                  $"Может плавать: {jbc.CanSubmerge}\n\t\t" +
+                                  $"Является хетчбеком: {jbc.IsHatchBack}\n\t\t" +
+                                  $"Количество радиостанций: {jbc.TheRadio.StationPresets.Length}\n\t\t");
+
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Метод сериализации объектов в binary или soap
