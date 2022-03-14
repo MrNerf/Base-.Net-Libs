@@ -25,8 +25,23 @@ namespace _09_SimpleSerialize
                 }
             };
             SaveAsBinaryFormat(jbc, "CarData.dat");
+            LoadFromBinaryFile("CarData.dat");
             Console.WriteLine("\n**************Работа приложения завершена**************");
             Console.ReadLine();
+        }
+
+        private static void LoadFromBinaryFile(string path)
+        {
+            using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None))
+            {
+                var binFormat = new BinaryFormatter();
+                var jbc = (JamesBondCar) DeSerializeObjectGraph(binFormat, fs);
+                Console.WriteLine($"JamesBondCar:\tМожет летать: {jbc.CanFly}\n\t\t" +
+                                  $"Может плавать: {jbc.CanSubmerge}\n\t\t" +
+                                  $"Является хетчбеком: {jbc.IsHatchBack}\n\t\t" +
+                                  $"Количество радиостанций: {jbc.TheRadio.StationPresets.Length}\n\t\t");
+
+            }
         }
 
         private static void SaveAsBinaryFormat(JamesBondCar jbc, string path)
@@ -50,9 +65,9 @@ namespace _09_SimpleSerialize
             iFormatter.Serialize(dstStream, graph);
         }
 
-        private static void DeSerializeObjectGraph(IFormatter iFormatter, Stream dstStream, object graph)
+        private static object DeSerializeObjectGraph(IFormatter iFormatter, Stream dstStream)
         {
-            iFormatter.Deserialize(dstStream);
+            return iFormatter.Deserialize(dstStream);
         }
     }
 }
