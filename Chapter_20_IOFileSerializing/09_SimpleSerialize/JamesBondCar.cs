@@ -11,5 +11,13 @@ namespace _09_SimpleSerialize
         public bool CanFly;
         [XmlAttribute]
         public bool CanSubmerge;
+
+        public JamesBondCar() { }
+
+        public JamesBondCar(bool flyStatus, bool submergeStatus)
+        {
+            CanSubmerge = submergeStatus;
+            CanFly = flyStatus;
+        }
     }
 }

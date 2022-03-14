@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -30,10 +31,29 @@ namespace _09_SimpleSerialize
             LoadFromBinaryFile("CarData.dat");
             SaveAsSoapFormat(jbc, "CarDataSoap.soap");
             LoadFromSoapFile("CarDataSoap.soap");
-            SaveAsXmlFormat(jbc, "CarDataSoap.xml");
-            LoadFromXmlFile("CarDataSoap.xml");
+            SaveAsXmlFormat(jbc, "CarDataXml.xml");
+            LoadFromXmlFile("CarDataXml.xml");
+            SerializeCollection("Collection.xml");
             Console.WriteLine("\n**************Работа приложения завершена**************");
             Console.ReadLine();
+        }
+
+        private static void SerializeCollection(string path)
+        {
+            var jbcCollection = new List<JamesBondCar>()
+            {
+                new JamesBondCar(false, false),
+                new JamesBondCar(false, true),
+                new JamesBondCar(true, false),
+                new JamesBondCar(true, true)
+            };
+
+            using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+            {
+                var xmlSerializer = new XmlSerializer(typeof(List<JamesBondCar>));
+                xmlSerializer.Serialize(fs, jbcCollection);
+                Console.WriteLine("=> Файл сохранен в xml формат");
+            }
         }
 
         #region Binary Serialization
