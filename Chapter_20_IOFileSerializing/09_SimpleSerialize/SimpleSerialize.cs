@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
+using System.Xml.Serialization;
 
 namespace _09_SimpleSerialize
 {
@@ -29,6 +30,8 @@ namespace _09_SimpleSerialize
             LoadFromBinaryFile("CarData.dat");
             SaveAsSoapFormat(jbc, "CarDataSoap.soap");
             LoadFromSoapFile("CarDataSoap.soap");
+            SaveAsXmlFormat(jbc, "CarDataSoap.xml");
+            LoadFromXmlFile("CarDataSoap.xml");
             Console.WriteLine("\n**************Работа приложения завершена**************");
             Console.ReadLine();
         }
@@ -69,7 +72,7 @@ namespace _09_SimpleSerialize
             {
                 var soapFormat = new SoapFormatter();
                 SerializeObjectGraph(soapFormat, fs, jbc);
-                Console.WriteLine("=> Файл сохранен в двоичный формат");
+                Console.WriteLine("=> Файл сохранен в soap формат");
             }
         }
 
@@ -84,6 +87,34 @@ namespace _09_SimpleSerialize
                                   $"Является хетчбеком: {jbc.IsHatchBack}\n\t\t" +
                                   $"Количество радиостанций: {jbc.TheRadio.StationPresets.Length}\n\t\t");
 
+            }
+        }
+
+        #endregion
+
+        #region XML Serialization
+
+        private static void LoadFromXmlFile(string path)
+        {
+            using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None))
+            {
+                var xmlSerializer = new XmlSerializer(typeof(JamesBondCar));
+                var jbc = (JamesBondCar)xmlSerializer.Deserialize(fs);
+                Console.WriteLine($"JamesBondCar:\tМожет летать: {jbc.CanFly}\n\t\t" +
+                                  $"Может плавать: {jbc.CanSubmerge}\n\t\t" +
+                                  $"Является хетчбеком: {jbc.IsHatchBack}\n\t\t" +
+                                  $"Количество радиостанций: {jbc.TheRadio.StationPresets.Length}\n\t\t");
+
+            }
+        }
+
+        private static void SaveAsXmlFormat(JamesBondCar jbc, string path)
+        {
+            using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+            {
+                var xmlSerializer = new XmlSerializer(typeof(JamesBondCar));
+                xmlSerializer.Serialize(fs, jbc);
+                Console.WriteLine("=> Файл сохранен в xml формат");
             }
         }
 
