@@ -18,6 +18,20 @@ namespace _10_CustomSerialization
                 sf.Serialize(fileStream, stringClass);
                 
             }
+            using (var fileStream = new FileStream("log2.soap", FileMode.Create, FileAccess.Write))
+            {
+                var stringClass = new StringDataAttributeSerialize();
+                var sf = new SoapFormatter();
+                sf.Serialize(fileStream, stringClass);
+
+            }
+            using (var fileStream = new FileStream("log2.soap", FileMode.Open, FileAccess.Read))
+            {
+                var sf = new SoapFormatter();
+                var stringClass = (StringDataAttributeSerialize)sf.Deserialize(fileStream);
+                Console.WriteLine(stringClass);
+
+            }
             Console.WriteLine("\n**************Работа приложения завершена**************");
             Console.ReadLine();
         }
