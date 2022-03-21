@@ -1,0 +1,6 @@
+CREATE TABLE [dbo].[Orders]
+(
+	[OrderId] INT NOT NULL PRIMARY KEY IDENTITY,
+	[CistId] INT NOT NULL,
+	[CarId] INT NOT NULL
+);
