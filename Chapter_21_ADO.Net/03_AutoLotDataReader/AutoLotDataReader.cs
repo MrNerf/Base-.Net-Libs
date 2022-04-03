@@ -24,15 +24,22 @@ namespace _03_AutoLotDataReader
                 sql.ConnectionString = sqlConnectionSb.ConnectionString;
                 sql.Open();
                 ShowConnectionStatus(sql);
-                var sqlCommand = new SqlCommand("select * from Inventory", sql);
+                var sqlCommand = new SqlCommand("select * from Inventory;select * from Orders", sql);
                 using (var dataReader = sqlCommand.ExecuteReader())
                 {
-                    while (dataReader.Read())
+                    do
                     {
-                        Console.WriteLine($"-> {dataReader["Mark"]}, " +
-                                          $"{dataReader["Color"]}, " +
-                                          $"{dataReader["PetName"]}");
-                    }
+                        Console.WriteLine("*********Начало записей в таблице*********");
+                        while (dataReader.Read())
+                        {
+                            Console.WriteLine("*********Запись*********");
+                            for (var i = 0; i < dataReader.FieldCount; i++)
+                            {
+                                Console.WriteLine($"-> {dataReader.GetName(i)} = {dataReader.GetValue(i)}");
+                            }
+                        }
+                        Console.WriteLine("*********Конец записей в таблице*********");
+                    } while (dataReader.NextResult());
                 }
             }
             Console.WriteLine("\n************Работа приложения завершена************");
