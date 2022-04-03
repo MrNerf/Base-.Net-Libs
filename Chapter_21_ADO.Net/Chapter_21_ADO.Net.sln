@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_ConnectionFactory", "01_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_DataProviderFactory", "02_DataProviderFactory\02_DataProviderFactory.csproj", "{8C5F21EF-5F67-4335-AB11-6EE197DBE8F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_AutoLotDataReader", "03_AutoLotDataReader\03_AutoLotDataReader.csproj", "{AAE4165E-52F9-4792-90BF-EC8A09D6E2D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8C5F21EF-5F67-4335-AB11-6EE197DBE8F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C5F21EF-5F67-4335-AB11-6EE197DBE8F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C5F21EF-5F67-4335-AB11-6EE197DBE8F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAE4165E-52F9-4792-90BF-EC8A09D6E2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE4165E-52F9-4792-90BF-EC8A09D6E2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE4165E-52F9-4792-90BF-EC8A09D6E2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE4165E-52F9-4792-90BF-EC8A09D6E2D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
