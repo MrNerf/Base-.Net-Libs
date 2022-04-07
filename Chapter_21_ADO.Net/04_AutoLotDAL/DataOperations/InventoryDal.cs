@@ -117,6 +117,42 @@ namespace _04_AutoLotDAL.DataOperations
             return executeResult;
         }
 
+        public int DeleteAuto(int carId)
+        {
+            OpenConnection();
+            int executeResult;
+            using (var sqlCommend = new SqlCommand($"DELETE FROM Inventory WHERE CarId = '{carId}'", _sqlConnection))
+            {
+                try
+                {
+                    sqlCommend.CommandType = CommandType.Text;
+                    executeResult = sqlCommend.ExecuteNonQuery();
+                }
+                catch (SqlException e)
+                {
+                    throw new Exception($"Программа вернула ошибку {e.Message}\n" +
+                                        "Сообщение для пользователя: Данный автомобиль продан");
+                }
+            }
+
+            CloseConnection();
+            return executeResult;
+        }
+
+        public int UpdateAuto(int carId, string petName)
+        {
+            OpenConnection();
+            int executeResult;
+            using (var sqlCommend = new SqlCommand($"UPDATE Inventory SET PetName = '{petName}' WHERE CarId = '{carId}'", _sqlConnection))
+            {
+                sqlCommend.CommandType = CommandType.Text;
+                executeResult = sqlCommend.ExecuteNonQuery();
+            }
+
+            CloseConnection();
+            return executeResult;
+        }
+
         #endregion
 
         public void Dispose()
