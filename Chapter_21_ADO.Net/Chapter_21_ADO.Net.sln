@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_DataProviderFactory", "0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_AutoLotDataReader", "03_AutoLotDataReader\03_AutoLotDataReader.csproj", "{AAE4165E-52F9-4792-90BF-EC8A09D6E2D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_AutoLotDAL", "04_AutoLotDAL\04_AutoLotDAL.csproj", "{383AF73B-719C-4BE4-88C6-DAE9A3386681}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AAE4165E-52F9-4792-90BF-EC8A09D6E2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAE4165E-52F9-4792-90BF-EC8A09D6E2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAE4165E-52F9-4792-90BF-EC8A09D6E2D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{383AF73B-719C-4BE4-88C6-DAE9A3386681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{383AF73B-719C-4BE4-88C6-DAE9A3386681}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{383AF73B-719C-4BE4-88C6-DAE9A3386681}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{383AF73B-719C-4BE4-88C6-DAE9A3386681}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
