@@ -18,21 +18,35 @@ namespace _04_AutoLotDAL.DataOperations
 
         #region Ctors
 
+        /// <summary>
+        /// Создание подключения к БД с значением по умолчанию
+        /// </summary>
         public InventoryDal() : this(@"Data Source = DRAGON; Initial Catalog = AutoLot; Integrated Security = True") { }
 
-
+        /// <summary>
+        /// Создание подключения к БД с заданной строкой подключения
+        /// </summary>
+        /// <param name="connectionString">Строка подключения к БД</param>
         public InventoryDal(string connectionString) => _connectionString = connectionString;
 
         #endregion
 
         #region Methods
 
+        #region Base Methods
+
+        /// <summary>
+        /// Открывает подключение к базе данных
+        /// </summary>
         public void OpenConnection()
         {
             _sqlConnection = new SqlConnection(_connectionString);
             _sqlConnection.Open();
         }
 
+        /// <summary>
+        /// Закрывает подключение к базе данных, если оно не было установлено
+        /// </summary>
         public void CloseConnection()
         {
             if (_sqlConnection?.State != ConnectionState.Closed)
@@ -42,6 +56,14 @@ namespace _04_AutoLotDAL.DataOperations
             
         }
 
+        #endregion
+
+        #region Queries
+
+        /// <summary>
+        /// Возвращает список записей в таблице Inventory
+        /// </summary>
+        /// <returns>Список записей в таблице Inventory</returns>
         public List<Car> GetInventoryCars()
         {
             OpenConnection();
@@ -67,6 +89,11 @@ namespace _04_AutoLotDAL.DataOperations
             return inventoryCar;
         }
 
+        /// <summary>
+        /// Возвращает запись из таблицы Inventory
+        /// </summary>
+        /// <param name="carId">Значение carId в таблице Inventory</param>
+        /// <returns>Возвращает найденный в таблице объект Car</returns>
         public Car GetOneCars(int carId)
         {
             OpenConnection();
@@ -89,6 +116,13 @@ namespace _04_AutoLotDAL.DataOperations
             return car;
         }
 
+        /// <summary>
+        /// Метод добавления записи в таблицу Inventory
+        /// </summary>
+        /// <param name="color">Цвет автомобиля</param>
+        /// <param name="mark">Марка автомобиля</param>
+        /// <param name="petName">Дружественное имя автомобиля</param>
+        /// <returns>Статус добавления строки в таблицу</returns>
         public int InsertAuto(string color, string mark, string petName)
         {
             OpenConnection();
@@ -103,6 +137,11 @@ namespace _04_AutoLotDAL.DataOperations
             return executeResult;
         }
 
+        /// <summary>
+        /// Метод добавления записи в таблицу Inventory
+        /// </summary>
+        /// <param name="car">Объект Car, который необходимо добавить в таблицу</param>
+        /// <returns>Статус добавления строки в таблицу</returns>
         public int InsertAuto(Car car)
         {
             OpenConnection();
@@ -120,6 +159,11 @@ namespace _04_AutoLotDAL.DataOperations
             return executeResult;
         }
 
+        /// <summary>
+        /// Метод удаления записи из таблицы Inventory
+        /// </summary>
+        /// <param name="carId">Значение carId для удаления</param>
+        /// <returns>Статус удаления строки</returns>
         public int DeleteAuto(int carId)
         {
             OpenConnection();
@@ -129,7 +173,7 @@ namespace _04_AutoLotDAL.DataOperations
                 try
                 {
                     sqlCommend.CommandType = CommandType.Text;
-                    sqlCommend.Parameters.Add(new SqlParameter("@CarId", SqlDbType.Int, 50) { Value = carId });
+                    sqlCommend.Parameters.Add(new SqlParameter("@CarId", SqlDbType.Int) { Value = carId });
                     executeResult = sqlCommend.ExecuteNonQuery();
                 }
                 catch (SqlException e)
@@ -143,6 +187,12 @@ namespace _04_AutoLotDAL.DataOperations
             return executeResult;
         }
 
+        /// <summary>
+        /// Метод обновления записи в таблице Inventory
+        /// </summary>
+        /// <param name="carId">Значение carId для обновления</param>
+        /// <param name="petName">Дружественное имя для обновления</param>
+        /// <returns>Статус обновления строки</returns>
         public int UpdateAuto(int carId, string petName)
         {
             OpenConnection();
@@ -156,6 +206,34 @@ namespace _04_AutoLotDAL.DataOperations
             CloseConnection();
             return executeResult;
         }
+
+        #endregion
+
+        #region StoredProcedure
+
+        /// <summary>
+        /// Запуск хранимой процедуры
+        /// </summary>
+        /// <param name="carId">Значение carId для которого необходимо вернуть дружественное имя</param>
+        /// <returns>Дружественное имя автомобиля</returns>
+        public string LookUpPetName(int carId)
+        {
+            OpenConnection();
+            string petName;
+            using (var sqlCommand = new SqlCommand("GetPetName", _sqlConnection))
+            {
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.Add(new SqlParameter("@CarId", SqlDbType.Int) {Value = carId, Direction = ParameterDirection.Input});
+                sqlCommand.Parameters.Add(new SqlParameter("@PetName", SqlDbType.NVarChar, 50) { Direction = ParameterDirection.Output });
+                sqlCommand.ExecuteNonQuery();
+                petName = (string) sqlCommand.Parameters["@PetName"].Value;
+            }
+
+            CloseConnection();
+            return petName;
+        }
+
+        #endregion
 
         #endregion
 
