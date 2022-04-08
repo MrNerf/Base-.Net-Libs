@@ -107,9 +107,12 @@ namespace _04_AutoLotDAL.DataOperations
         {
             OpenConnection();
             int executeResult;
-            using (var sqlCommend = new SqlCommand($"INSERT INTO Inventory (Mark, Color, PetName) VALUES ('{car.Mark}', '{car.Color}', '{car.PetName}')", _sqlConnection))
+            using (var sqlCommend = new SqlCommand($"INSERT INTO Inventory (Mark, Color, PetName) VALUES (@Mark, @Color, @PetName)", _sqlConnection))
             {
                 sqlCommend.CommandType = CommandType.Text;
+                sqlCommend.Parameters.Add(new SqlParameter("@Mark", SqlDbType.NVarChar, 50) {Value = car.Mark});
+                sqlCommend.Parameters.Add(new SqlParameter("@Color", SqlDbType.NVarChar, 50) { Value = car.Color });
+                sqlCommend.Parameters.Add(new SqlParameter("@PetName", SqlDbType.NVarChar, 50) { Value = car.PetName });
                 executeResult = sqlCommend.ExecuteNonQuery();
             }
 
@@ -121,11 +124,12 @@ namespace _04_AutoLotDAL.DataOperations
         {
             OpenConnection();
             int executeResult;
-            using (var sqlCommend = new SqlCommand($"DELETE FROM Inventory WHERE CarId = '{carId}'", _sqlConnection))
+            using (var sqlCommend = new SqlCommand($"DELETE FROM Inventory WHERE CarId = (@CarId)", _sqlConnection))
             {
                 try
                 {
                     sqlCommend.CommandType = CommandType.Text;
+                    sqlCommend.Parameters.Add(new SqlParameter("@CarId", SqlDbType.Int, 50) { Value = carId });
                     executeResult = sqlCommend.ExecuteNonQuery();
                 }
                 catch (SqlException e)
