@@ -58,6 +58,13 @@ namespace _05_AutoLotDalClient
             Console.WriteLine("Получить дружественное имя 4й записи в таблице");
             var petName = inventoryDal.LookUpPetName(4);
             Console.WriteLine($"CarID = 3, PetName = {petName}");
+
+            //Пример транзакции
+            var stat = inventoryDal.ProcessCreditRisk(false, 2);
+            if (stat) Console.WriteLine("Транзакция прошла успешно");
+            stat = inventoryDal.ProcessCreditRisk(true, 4);
+            if (!stat) Console.WriteLine("Транзакция не прошла");
+
             Console.WriteLine("\n************Работа приложения завершена************");
             Console.ReadLine();
         }

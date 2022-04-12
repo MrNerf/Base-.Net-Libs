@@ -235,6 +235,70 @@ namespace _04_AutoLotDAL.DataOperations
 
         #endregion
 
+        #region TransactionMethod
+
+        /// <summary>
+        /// Метод взаимодействия с таблицей CreditRisk
+        /// </summary>
+        /// <param name="throwEx">Параметр для эмуляции ошибки при throwEx = true</param>
+        /// <param name="custId">Id клиента для перемещения в таблицу риска</param>
+        public bool ProcessCreditRisk(bool throwEx, int custId)
+        {
+            OpenConnection();
+            string firstName, secondName;
+            var cmdSelect = new SqlCommand($"SELECT * FROM Custumers WHERE CustId = {custId}", _sqlConnection);
+            using (var dataReader = cmdSelect.ExecuteReader())
+            {
+                if (dataReader.HasRows)
+                {
+                    dataReader.Read();
+                    firstName = (string)dataReader["FirstName"];
+                    secondName = (string)dataReader["LastName"];
+                }
+                else
+                {
+                   CloseConnection();
+                   return false;
+                }
+            }
+
+            var cmdDelete = new SqlCommand($"Delete FROM Custumers WHERE CustId = {custId}", _sqlConnection);
+            var cmdInsert = new SqlCommand($"INSERT INTO CreditRisk (FirstName, SecondName) values ('{firstName}', '{secondName}')", _sqlConnection);
+            SqlTransaction transaction = null;
+            try
+            {
+                //присвоение командам транзакции
+                transaction = _sqlConnection.BeginTransaction();
+                cmdDelete.Transaction = transaction;
+                cmdInsert.Transaction = transaction;
+
+                //запуск команд
+                cmdDelete.ExecuteNonQuery();
+                cmdInsert.ExecuteNonQuery();
+
+                //Эмуляция ошибки
+                if (throwEx)
+                    throw new Exception("Непредвиденная ошибка в БД");
+                
+                //фиксация транзакции
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                //откат транзакции
+                transaction?.Rollback();
+                return false;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return true;
+        }
+
+        #endregion
+
         #endregion
 
         public void Dispose()
