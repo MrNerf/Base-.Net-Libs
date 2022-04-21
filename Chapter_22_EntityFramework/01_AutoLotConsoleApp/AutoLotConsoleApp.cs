@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using _01_AutoLotConsoleApp.EF;
 
@@ -12,16 +13,32 @@ namespace _01_AutoLotConsoleApp
             Console.Title = "Базовый пример использования EF";
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("***********Entity Framework Test App***********\n");
+
+            var carMas = new Car[5];
+            for (var i = 0; i < carMas.Length; i++)
+            {
+                carMas[i] = new Car()
+                {
+                    CarNickName = $"Ник {i}",
+                    Color = $"Цвет {i}",
+                    Mark = $"Марка {i}"
+                };
+            }
+
             while (true)
             {
-                Console.WriteLine("Главное меню программы:\n" +
-                                  "Введите команду:\n" +
-                                  "1 - добавить элемент в таблицу Inventory\n" +
-                                  "2 - добавить множество элементов в таблицу Inventory\n" +
-                                  "3 - Прочитать все элементы из таблицы Inventory\n" +
-                                  "4 - Прочитать все элементы из таблицы Inventory управляемым запросом\n" +
-                                  "5 - Построение запросов с помощью Linq\n" +
-                                  "0 - Выход из программы");
+                Console.WriteLine(value: "Главное меню программы:\n" +
+                                         "Введите команду:\n" +
+                                         "1 - добавить элемент в таблицу Inventory\n" +
+                                         "2 - добавить множество элементов в таблицу Inventory\n" +
+                                         "3 - Прочитать все элементы из таблицы Inventory\n" +
+                                         "4 - Прочитать все элементы из таблицы Inventory управляемым запросом\n" +
+                                         "5 - Построение запросов с помощью Linq\n" +
+                                         "6 - Удаление элемента из таблицы Inventory по введенному Id\n" +
+                                         "7 - Удаление Группы элементов, добавленных через меню 2 Inventory\n" +
+                                         "8 - Удаление из таблицы Inventory через EntityState\n" +
+                                         "9 - Обновление записи таблицы Inventory через EntityState\n" +
+                                         "0 - Выход из программы");
                 Console.Write("Command: ");
                 var command = Console.ReadLine();
                 switch (command)
@@ -31,17 +48,7 @@ namespace _01_AutoLotConsoleApp
                         Console.WriteLine(returnId > 0 ? $"Id = {returnId}" : "Возникла ошибка");
                         break;
                     case "2":
-                        var carMas = new Car[5];
-                        for (var i = 0; i < carMas.Length; i++)
-                        {
-                            carMas[i] = new Car()
-                            {
-                                CarNickName = $"Ник {i}",
-                                Color = $"Цвет {i}",
-                                Mark = $"Марка {i}"
-                            };
-                            AddManyCar(carMas);
-                        }
+                        AddManyCar(carMas);
                         break;
                     case "3":
                         PrintAllInventory();
@@ -52,13 +59,105 @@ namespace _01_AutoLotConsoleApp
                     case "5":
                         LinqQuery();
                         break;
+                    case "6":
+                        Console.Write("Id для удаления: ");
+                        var findId = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
+                        DeleteById(findId);
+                        break;
+                    case "7":
+                        DeleteById(carMas);
+                        break;
+                    case "8":
+                        Console.Write("Id для удаления: ");
+                        findId = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
+                        DeleteByEntityState(findId);
+                        break;
+                    case "9":
+                        Console.Write("Id для изменения: ");
+                        findId = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
+                        UpdateById(findId);
+                        break;
                     case "0":
                         Console.WriteLine("***********Работа приложения завершена***********");
-                        //Console.ReadLine();
                         return;
                     default:
                         Console.WriteLine("Неверная команда");
                         break;
+                }
+            }
+        }
+
+        private static void UpdateById(int findId)
+        {
+            using (var autoLotContext = new AutoLotEntities())
+            {
+                try
+                {
+                    var carToUpdate = autoLotContext.Cars.Find(findId);
+                    if (carToUpdate is null)
+                        throw new Exception("Машина не найдена");
+                    Console.WriteLine(autoLotContext.Entry(carToUpdate).State);
+                    carToUpdate.Color = "Красный";
+                    Console.WriteLine(autoLotContext.Entry(carToUpdate).State);
+                    autoLotContext.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Ошибка программы {e.Message}");
+                }
+            }
+        }
+
+        private static void DeleteByEntityState(int findId)
+        {
+            using (var autoLotContext = new AutoLotEntities())
+            {
+                try
+                {
+                    var carToDelete = new Car(){CarId = findId};
+                    autoLotContext.Entry(carToDelete).State = EntityState.Deleted;
+                    autoLotContext.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Ошибка программы {e.Message}");
+                }
+            }
+        }
+
+        private static void DeleteById(IEnumerable<Car> cars)
+        {
+            using (var autoLotContext = new AutoLotEntities())
+            {
+                try
+                {
+                    autoLotContext.Cars.RemoveRange(cars);
+                    autoLotContext.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Ошибка программы {e.Message}");
+                }
+            }
+        }
+
+        private static void DeleteById(int findId)
+        {
+            using (var autoLotContext = new AutoLotEntities())
+            {
+                try
+                {
+                    var foundCar = autoLotContext.Cars.Find(findId);
+                    if (foundCar == null)
+                        throw new Exception("Машина не найдена");
+                    autoLotContext.Cars.Remove(foundCar);
+                    if (autoLotContext.Entry(foundCar).State != EntityState.Deleted)
+                        throw new Exception("Ошибка удаления");
+                    autoLotContext.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Ошибка программы {e.Message}");
                 }
             }
         }

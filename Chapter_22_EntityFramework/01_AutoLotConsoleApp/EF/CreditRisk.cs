@@ -1,10 +1,7 @@
 namespace _01_AutoLotConsoleApp.EF
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("CreditRisk")]
     public partial class CreditRisk
