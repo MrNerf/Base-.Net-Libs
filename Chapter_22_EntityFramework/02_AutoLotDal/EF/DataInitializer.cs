@@ -33,6 +33,25 @@ namespace _02_AutoLotDal.EF
                 new Inventory() {Mark = "БМВ", Color = "Красный", PetName = "БэшкаКр"},
             };
 
+            context.Inventories.AddOrUpdate(x=> new {x.Mark, x.Color}, cars.ToArray());
+
+            var orders = new List<Order>
+            {
+                new Order() {Car = cars[0], Custumer = customers[0]},
+                new Order() {Car = cars[1], Custumer = customers[1]},
+                new Order() {Car = cars[2], Custumer = customers[2]},
+                new Order() {Car = cars[3], Custumer = customers[3]},
+            };
+
+            orders.ForEach(order => context.Orders.AddOrUpdate(x=> new {x.CarId, x.CustId}, order));
+
+            context.CreditRisks.AddOrUpdate(x=> new {x.FirstName, x.SecondName}, new CreditRisk()
+            {
+                CustId = customers[4].CustId,
+                FirstName = customers[4].FirstName,
+                SecondName = customers[4].LastName
+            });
+
             Database.SetInitializer(new DataInitializer());
         }
     }

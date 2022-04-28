@@ -5,18 +5,19 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3B17BDFC-C95A-40EB-9F20-E72D09A762F8}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_02_AutoLotDal</RootNamespace>
-    <AssemblyName>02_AutoLotDal</AssemblyName>
+    <ProjectGuid>{931F4919-14F3-4B8D-B360-132F8727B7D0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>_03_AutoLotDalTest</RootNamespace>
+    <AssemblyName>03_AutoLotDalTest</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -51,37 +53,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EF\AutoLotEntities.cs" />
-    <Compile Include="EF\DataInitializer.cs" />
-    <Compile Include="EF\Inventory.cs" />
-    <Compile Include="EF\InventoryPartial.cs" />
-    <Compile Include="EF\CreditRisk.cs" />
-    <Compile Include="EF\Custumer.cs" />
-    <Compile Include="EF\Order.cs" />
-    <Compile Include="Migrations\202204281447135_InitialCreate.cs" />
-    <Compile Include="Migrations\202204281447135_InitialCreate.designer.cs">
-      <DependentUpon>202204281447135_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204281457169_Initial.cs" />
-    <Compile Include="Migrations\202204281457169_Initial.designer.cs">
-      <DependentUpon>202204281457169_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Common\EntityCommon.cs" />
+    <Compile Include="AutoLotDalTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202204281447135_InitialCreate.resx">
-      <DependentUpon>202204281447135_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204281457169_Initial.resx">
-      <DependentUpon>202204281457169_Initial.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\02_AutoLotDal\02_AutoLotDal.csproj">
+      <Project>{3b17bdfc-c95a-40eb-9f20-e72d09a762f8}</Project>
+      <Name>02_AutoLotDal</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
